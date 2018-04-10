@@ -17,3 +17,26 @@ Features
 Stack
 * Node.js
 * Google Cloud: App Engine
+
+
+
+### Installing the Project
+
+You'll want to git clone and then change into the project directory. In any directory inside the project, call this command on the command line:
+```
+npm intall
+```
+
+This will install all the required dependencies. Then you'll want to run this command (inside the project):
+```
+npm start
+```
+That should start up the server.
+
+
+You'll then want to go to this URL inside your browser:
+```
+localhost:3000
+```
+
+Voila! Feel free to start uploading photos.
