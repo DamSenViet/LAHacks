@@ -24,7 +24,7 @@ Stack
 
 You'll want to git clone and then change into the project directory. In any directory inside the project, call this command on the command line:
 ```
-npm intall
+npm install
 ```
 
 This will install all the required dependencies. Then you'll want to run this command (inside the project):
