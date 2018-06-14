@@ -39,6 +39,7 @@ localhost:3000
 
 Voila! Feel free to start uploading photos.
 
-
-<img src="./screenshots/landing.png" width="650" />
-<img src="./screenshots/category.png" width="650" />
+<p align="center">
+  <img src="./screenshots/landing.png" width="650" />
+  <img src="./screenshots/category.png" width="650" />
+</p>
