@@ -40,5 +40,5 @@ localhost:3000
 Voila! Feel free to start uploading photos.
 
 
-![](./screenshots/landing.png)
-![](./screenshots/category.png)
+<img src="./screenshots/landing.png" width="650" />
+<img src="./screenshots/category.png" width="650" />
