@@ -1,8 +1,6 @@
 # LAHacks
 Pixster Challenge Submission - May the Best Photo Win
 
-[Link to Live Website](https://lahacks-199811.appspot.com/)
-
 Instagram + Reddit Web Application
 
 Features
@@ -40,3 +38,7 @@ localhost:3000
 ```
 
 Voila! Feel free to start uploading photos.
+
+
+![](./screenshots/landing.png)
+![](./screenshots/category.png)
