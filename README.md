@@ -1,7 +1,7 @@
 # LAHacks
 Pixster Challenge Submission - May the Best Photo Win
 
-Instagram + Reddit Web Application
+Imgur + Reddit Web Application
 
 Features
 * Upload Photos
