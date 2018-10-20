@@ -78,37 +78,21 @@ router.post('/signup/*/*/', function(req, res, next) {
     baseUrl = process.cwd();
     console.log(baseUrl);
 
-    // ASYNCHRONOUS, DON'T USE THIS SINCE
-    // ERRORS WILL NOT BE CAUGHT
-    // fs.readFile(baseUrl + '/public/userdata.json', function(err, data) {
-    //     if (err) throw err;
-    //     // console.log("")
-    //     var json = JSON.parse(data);
-    //
-    //     // add new username
-    //     // TODO: throw error if username exists
-    //
-    //     if (json.hasOwnProperty(username)) {
-    //         failSignUp(req, res, next);
-    //         res.end();
-    //         return;
-    //     }
-    //
-    //     json[username] = {"password": password};
-    //
-    //     fs.writeFile(baseUrl + '/public/userdata.json', JSON.stringify(json));
-    // });
-
     try {
         let data = fs.readFileSync(baseUrl + "/public/userdata.json");
         let json = JSON.parse(data);
 
+        console.log("1")
+
         // if username already exists
         if (json.hasOwnProperty(username)) throw "username already exists";
 
-        json[username] = {"password": password, "uploads" : [], "upvotes" : {}};
+        console.log("1")
 
-        fs.writeFile(baseUrl + '/public/userdata.json', JSON.stringify(json));
+
+        json[username] = {"password": password, "uploads" : [], "upvotes" : {}};
+        fs.writeFileSync(baseUrl + '/public/userdata.json', JSON.stringify(json));
+        console.log("1")
 
     } catch (err) {
         console.log("login attempt failed");
@@ -120,6 +104,7 @@ router.post('/signup/*/*/', function(req, res, next) {
     console.log("success");
     res.cookie('sessionid', username, {});
     res.send({"success": true});
+    return;
 });
 
 /* GET login page */
@@ -202,7 +187,7 @@ router.post('/createcategory/*/', function(req, res, next) {
 
     if (!fs.existsSync(baseUrl + "/public/pictures/" + category_name)) {
         fs.mkdirSync(baseUrl + "/public/pictures/" + category_name);
-        fs.writeFile(baseUrl + "/public/pictures/" + category_name + "/data.json", JSON.stringify({}));
+        fs.writeFileSync(baseUrl + "/public/pictures/" + category_name + "/data.json", JSON.stringify({}));
 
         // set success
         res.send({});
@@ -319,7 +304,7 @@ router.post('/upload/*/', function(req, res, next) {
 
     saveUrl = baseUrl + '/public/pictures/' + category + "/" + req.body.filename;
 
-    fs.writeFile(saveUrl, req.body.img, 'base64', function(err) {
+    fs.writeFileSync(saveUrl, req.body.img, 'base64', function(err) {
         console.log(err);
     });
 
@@ -330,7 +315,7 @@ router.post('/upload/*/', function(req, res, next) {
      + "/data.json");
      let json = JSON.parse(data);
      json[req.body.filename] = {"votes": 0};
-     fs.writeFile(baseUrl + "/public/pictures/" + category
+     fs.writeFileSync(baseUrl + "/public/pictures/" + category
       + "/data.json", JSON.stringify(json));
 
       var sessionid = getSessionId(req);
@@ -348,7 +333,7 @@ router.post('/upload/*/', function(req, res, next) {
           userjson[sessionid]["uploads"].push("/pictures/" + category + "/" + req.body.filename);
       }
 
-      fs.writeFile(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
+      fs.writeFileSync(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
 
       res.send({message: "success"});
 });
@@ -376,14 +361,14 @@ router.post('/upvote/', function(req, res, next) {
         // user already upvoted
     } else {
         userjson[sessionid]["upvotes"][category + "/" + photo] = null;
-        fs.writeFile(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
+        fs.writeFileSync(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
 
         console.log("wrote to userdata");
 
         var data = fs.readFileSync(baseUrl + "/public/pictures/" + category + "/data.json");
         var json = JSON.parse(data);
         json[photo]["votes"] += 1;
-        fs.writeFile(baseUrl + "/public/pictures/" + category + "/data.json", JSON.stringify(json));
+        fs.writeFileSync(baseUrl + "/public/pictures/" + category + "/data.json", JSON.stringify(json));
     }
 
 
@@ -409,7 +394,7 @@ router.post('/removevote/', function(req, res, next) {
         // user already upvoted, remove vote
         delete userjson[sessionid]["upvotes"][category + "/" + photo];
 
-        fs.writeFile(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
+        fs.writeFileSync(baseUrl + "/public/userdata.json", JSON.stringify(userjson));
 
         console.log("wrote to userdata");
 
@@ -417,7 +402,7 @@ router.post('/removevote/', function(req, res, next) {
         var json = JSON.parse(data);
         --json[photo]["votes"];
         console.log(json);
-        fs.writeFile(baseUrl + "/public/pictures/" + category + "/data.json", JSON.stringify(json));
+        fs.writeFileSync(baseUrl + "/public/pictures/" + category + "/data.json", JSON.stringify(json));
     } else {
     }
 
